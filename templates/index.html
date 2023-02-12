@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GO WORK!</title>
+</head>
+<body>
+<form method="POST" >
+    {% csrf_token %}
+    <p>
+        <label>Введите имя</label><br>
+        <input type="text" name="first_name"/>
+    </p>
+    <p>
+        <label>Введите фамилию</label><br>
+        <input type="text" name="last_name"/>
+    </p>
+    <p>
+        <label>Введите ссылку профиля в телеграм</label><br>
+        <input type="text" name="telegram_link"/>
+    </p>
+
+    <a href="report/"><input type="submit" value="Сохранить"></a>
+</form>
+
+</body>
+</html>

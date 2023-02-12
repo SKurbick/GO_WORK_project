@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Твои обоссанные отчеты</title>
+</head>
+<body>
+<form method="POST">
+    {% csrf_token %}
+
+    <p>ваш айди {{ profile_id }}</p>
+    <p>
+        <label>Тема занятости</label><br>
+        <input type="text" name="theme"/>
+    </p>
+    <p>
+        <label>краткое описание чем занимался в отведенное время</label><br>
+        <input type="text" name="description"/>
+    </p>
+    <p>
+        <label>Что узнал\изучил</label><br>
+        <input type="text" name="what_learned"/>
+    </p>
+    <p>
+        <label>Вывод:</label><br>
+        <input type="text" name="conclusion"/>
+    </p>
+    <p>
+        <label>Язык практики:</label><br>
+        <input type="text" name="programming_language"/>
+    </p>
+
+
+    <input type="submit" value="Отправить">
+</form>
+</body>
+</html>

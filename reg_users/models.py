@@ -7,6 +7,7 @@ from django.db import models
 class Profile(models.Model):
     first_name = models.CharField(max_length=50, verbose_name="Имя")
     last_name = models.CharField(max_length=50, verbose_name="Фамилия")
+    telegram_link = models.CharField(max_length=50, verbose_name="профиль в телеграм")
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
