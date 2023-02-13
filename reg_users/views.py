@@ -1,5 +1,5 @@
 from django.forms import forms
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
 from reg_users.models import Profile, Report, Language
@@ -20,9 +20,11 @@ def create_profile(request):
 
 def create_report(request):
     profile_id = request.GET.get("profile_id")
+    prof = Profile.objects.filter(id=profile_id)
+    print(prof)
     context = {"profile_id": profile_id}
+    # print(Profile.reports.all())
     if request.method == "POST":
-        language = Language()
         report = Report()
         report.theme = request.POST.get("theme")
         report.description = request.POST.get("description")
@@ -42,16 +44,18 @@ def create_report(request):
 
     return render(request, "report.html", context)
 
-# def add_language(request):
-#     if request.method == "POST":
-#         language = Language()
-#         language.programming_language = request.POST.get("language")
-#         language.save()
-#     return render(request, "add_language.html")
 
-# def get_id(request, get_id):
-#     profiles = Profile.objects.filter(id=get_id)
-#     context = {
-#         "profiles": profiles
-#     }
-#     return render(request, "id.html", context)
+def open_profile(request):
+    if request.method == "POST":
+        profile = Profile.objects.filter(
+            telegram_link=request.POST.get("telegram_link"))
+        for profil in profile:
+            profile_id = profil.id
+        if profile:
+            # return HttpResponse("неправильный id")
+
+            return HttpResponseRedirect(f"report/?profile_id={int(profile_id)}")
+        else:
+            return HttpResponse("неправильный id")
+
+    return render(request, 'open_profile.html')

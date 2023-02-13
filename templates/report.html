@@ -30,8 +30,11 @@
         <input type="text" name="programming_language"/>
     </p>
 
-
     <input type="submit" value="Отправить">
 </form>
+<p> Ваши прошлые отчеты:</p>
+{% for report in reports %}
+{{ report.theme }}
+{% endfor %}
 </body>
 </html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход по профилю</title>
+</head>
+<body>
+<form method="POST">
+        {% csrf_token %}
+
+    <p><label>Введите профиль телеграмма (пример: <@profile>)</label><br>
+        <input type="text" name="telegram_link">
+    </p>
+    <input type="submit" value="Войти">
+</form>
+</body>
+</html>

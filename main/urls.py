@@ -16,14 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from reg_users.views import create_profile, create_report
+from reg_users.views import create_profile, create_report, open_profile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', create_profile),
     path('report/', create_report),
-    # path('add_language/', add_language),
-    # path('<get_id>/', get_id)
+    path('open_profile/', open_profile),
+    path('open_profile/report/', create_report)
 
 ]
