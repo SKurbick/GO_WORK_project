@@ -1,27 +1,43 @@
-from django.forms import forms
+from django.db import IntegrityError
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
+from django.core.exceptions import ValidationError
 
 from reg_users.models import Profile, Report, Language
 
 
 def create_profile(request):
     if request.method == "POST":
-        profile = Profile()
-        profile.first_name = request.POST.get("first_name")
-        profile.last_name = request.POST.get("last_name")
-        profile.telegram_link = request.POST.get("telegram_link")
-        profile.save()
-        print(profile.id)
-        return HttpResponseRedirect(f"report/?profile_id={profile.id}")
+        # try:
+        try:
+            profile = Profile()
+            profile.first_name = request.POST.get("first_name")
+            profile.last_name = request.POST.get("last_name")
+            profile.telegram_link = request.POST.get("telegram_link")
 
+        except IntegrityError:
+            return HttpResponse(" Ваш телеграм профиль не уникален. Проверьте правильность написания.")
+        try:
+            profile.full_clean()
+
+
+            # try:
+            profile.save()
+            print(profile.id)
+            return HttpResponseRedirect(f"report/?profile_id={profile.id}")
+        except ValidationError:
+            return HttpResponse("Поля не должны быть пустыми")
+    # except ValidationError:
+    #     return HttpResponse("dwasdw")
     return render(request, "index.html")
 
 
 def create_report(request):
     profile_id = request.GET.get("profile_id")
     prof = Profile.objects.filter(id=profile_id)
-    print(prof)
+    for i in Profile.objects.filter(id=25):
+        for r in i.reports.all():
+            print(r.description)
     context = {"profile_id": profile_id}
     # print(Profile.reports.all())
     if request.method == "POST":
